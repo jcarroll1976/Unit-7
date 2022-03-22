@@ -4,7 +4,7 @@ import express from 'express';
 // require the cors module
 import cors from "cors"
 
-import cartItemsRoutes from "../src/routes/cart-items"
+import cartItemsRoutes from "./routes/cart-items"
  
 // creates an instance of an Express server
 const app = express();

@@ -41,7 +41,7 @@ routes.get("/cart-items",(req,res) => {
     res.json(results); //return statement
 });
 
-routes.get("./cart-items/:id",(req,res) => {
+routes.get("/cart-items/:id",(req,res) => {
     const id = Number(req.params.id);
     const item = items.find(item => item.id === id);
     if(item) {
@@ -63,29 +63,27 @@ routes.post("/cart-items",(req,res) => {
 
 routes.put("/cart-items/:id",(req,res) => {
     const id =Number(req.params.id);
-    let foundItem = items.find(item => item.id ===id);
+    const updatedItem: Item = req.body;
+    updatedItem.id = id;
 
-    if(foundItem) {
-        foundItem = {
-            id:foundItem.id,
-            product:req.body.product,
-            price:req.body.price,
-            quantity:req.body.quantity
-        }
+    const index = items.findIndex(item => item.id === id);
+    items[index] =updatedItem;
         res.status(200);
-        res.json(foundItem);
-    }
+        res.json(updatedItem);
+    
 
 })
 
 routes.delete("/cart-items/:id",(req,res) => {
     const id = Number(req.params.id);
-    const findItem = items.find(item => item.id === id);
 
-    if(deleteItem) {
-        delete findItem;
-    }
-    res.send(204);
+    const index = items.findIndex(item => item.id === id);
+
+    items.splice(index,1)
+
+    
+    res.status(204);
+    res.json();
 })
 
 export default routes;
